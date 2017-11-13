@@ -16,6 +16,8 @@ class BannerAdmin(object):
     list_filter = ['title', 'image', 'url', 'index', 'add_time']
 
 
+
+
 xadmin.site.register(EmailVerifyRecord, EmailVerifyRecordAdmin)
 
 xadmin.site.register(Banner, BannerAdmin)
