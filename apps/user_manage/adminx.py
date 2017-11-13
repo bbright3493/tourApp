@@ -5,6 +5,11 @@ import xadmin
 from .models import EmailVerifyRecord
 from .models import Banner
 
+#添加样式
+class BaseSetting(object):
+    enable_themes = True
+    use_bootswatch = True
+
 class EmailVerifyRecordAdmin(object):
     list_display = ['code', 'email', 'send_type', 'send_time']
     search_fields = ['code', 'email', 'send_type']
@@ -19,5 +24,5 @@ class BannerAdmin(object):
 
 
 xadmin.site.register(EmailVerifyRecord, EmailVerifyRecordAdmin)
-
 xadmin.site.register(Banner, BannerAdmin)
+xadmin.site.register(views.BaseAdminView, BaseSetting)

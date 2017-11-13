@@ -26,4 +26,6 @@ xadmin.autodiscover()
 
 urlpatterns = [
     url(r'xadmin/', include(xadmin.site.urls)),
+    url('^login/$', )
+
 ]
