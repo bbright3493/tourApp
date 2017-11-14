@@ -1,2 +1,2 @@
-default_app_config = 'user_manage.aps.UserManageConfig'
+default_app_config = 'user_manage.apps.UserManageConfig'
 
