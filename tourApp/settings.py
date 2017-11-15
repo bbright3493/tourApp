@@ -30,7 +30,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 AUTHENTICATION_BACKENDS = (
-    'users.views.CustomBackend',
+    'user_manage.views.CustomBackend',
 
 )
 
@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'xadmin',
     'crispy_forms',
     'reversion',
-    'user_manage'
+    'user_manage',
+    'captcha'
 ]
 
 AUTH_USER_MODEL = 'user_manage.UserProfile'

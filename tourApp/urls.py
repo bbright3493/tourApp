@@ -18,7 +18,7 @@ Including another URLconf
 from django.conf.urls import patterns, include, url
 from xadmin.plugins import xversion
 import xadmin
-from user_manage.views import LoginView
+from user_manage.views import LoginView, RegisterView
 from django.views.generic import TemplateView
 
 #version模块自动注册需要版本控制的 Model
@@ -30,5 +30,7 @@ urlpatterns = [
     url(r'xadmin/', include(xadmin.site.urls)),
     url(r'^$', TemplateView.as_view(template_name='index.html'), name='index'),
     url('^login/$', LoginView.as_view(), name='login'),
+    url('^register/$', RegisterView.as_view(), name='register'),
+    url('^captcha/', include('captcha.urls')),
 
 ]
