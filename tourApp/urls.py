@@ -18,7 +18,7 @@ Including another URLconf
 from django.conf.urls import patterns, include, url
 from xadmin.plugins import xversion
 import xadmin
-from user_manage.views import LoginView, RegisterView
+from user_manage.views import LoginView, RegisterView, ActiveUserView, ForgetPasswordView
 from django.views.generic import TemplateView
 
 #version模块自动注册需要版本控制的 Model
@@ -32,5 +32,6 @@ urlpatterns = [
     url('^login/$', LoginView.as_view(), name='login'),
     url('^register/$', RegisterView.as_view(), name='register'),
     url('^captcha/', include('captcha.urls')),
-
+    url(r'^active/(?P<activate_code>.*)/$', ActiveUserView.as_view(), name='user_active'),
+    url(r'^forget/$', ForgetPasswordView.as_view(), name='forget_pwd'),
 ]
