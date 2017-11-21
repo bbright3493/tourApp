@@ -43,5 +43,11 @@ def send_register_email(email, send_type='register'):
         send_status = send_mail(emai_title, email_body, EMAIL_FROM, [email])
         if send_status:
             pass
+    elif send_type == 'forget':
+        emai_title = '注册密码重置'
+        email_body = '点击下面链接重置你的密码：http://127.0.0.1:8000/reset/{0}'.format(code)
+        send_status = send_mail(emai_title, email_body, EMAIL_FROM, [email])
+        if send_status:
+            pass
 
 

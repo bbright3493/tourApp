@@ -6,7 +6,7 @@ from django.contrib.auth.backends import ModelBackend
 from .models import UserProfile, EmailVerifyRecord
 from django.db.models import Q
 from django.views.generic.base import View
-from .froms import LoginForm, RegisterForm, ForgetForm
+from .froms import LoginForm, RegisterForm, ForgetForm, ModifyPwdForm
 from django.contrib.auth.hashers import make_password
 from utils.email_send import send_register_email
 # Create your views here.
@@ -50,6 +50,8 @@ class RegisterView(View):
         register_form = RegisterForm(request.POST)
         if register_form.is_valid():
             user_name = request.POST.get('email', '')
+            t = UserProfile.objects.filter(email=user_name)
+
             if UserProfile.objects.filter(email=user_name):
                 return render(request, 'register.html', {'register_form':register_form,  'msg':'用户已经存在'})
             pass_word = request.POST.get('password', '')
@@ -83,7 +85,40 @@ class ForgetPasswordView(View):
         render(request, 'forgetpwd.html', {'forget_form':forget_form})
 
     def post(self, request):
-        forget_form = ForgetForm(request)
+        forget_form = ForgetForm(request.POST)
         if forget_form.is_valid():
             email = request.POST.get('email', '')
             send_register_email(email, 'forget')
+            render(request, 'send_success.html')
+        else:
+            render(request, 'forgetpwd.html', {'forget_form': forget_form})
+
+class ResetPwdView(View):
+    def get(self, request, active_code):
+        all_records = EmailVerifyRecord.objects.filter(code=active_code)
+        if all_records:
+            for record in all_records:
+                email = record.email
+                render(request, 'password_reset.html.html', {'email':email})
+        else:
+            render(request, 'active_fail.html')
+        return  render(request, 'login.html')
+
+class ModifyPwd(View):
+    def post(self, request):
+        reset_form = ModifyPwdForm(request.POST)
+        if reset_form.is_valid():
+            #判断两个密码是否一样
+            #一样则保存密码
+            pwd1 = request.POST.get('password1', '')
+            pwd2 = request.POST.get('password2', '')
+            email = request.POST.get('email', '')
+            if pwd1 != pwd2:
+                render(request, 'password_reset.html.html', {'email': email, 'msg':'密码不一致'})
+            user = UserProfile.objects.get(email=email)
+            user.password = make_password(pwd2)
+            user.save()
+            render(request, 'login.html')
+        else:
+            email = request.POST.get('email', '')
+            render(request, 'password_reset.html.html', {'email':email, 'reset_form':reset_form})
