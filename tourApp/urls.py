@@ -20,6 +20,7 @@ from xadmin.plugins import xversion
 import xadmin
 from user_manage.views import LoginView, RegisterView, ActiveUserView, ForgetPasswordView, ResetPwdView, ModifyPwd
 from django.views.generic import TemplateView
+from device_manage.views import OrgView
 
 #version模块自动注册需要版本控制的 Model
 xversion.register_models()
@@ -36,4 +37,5 @@ urlpatterns = [
     url(r'^forget/$', ForgetPasswordView.as_view(), name='forget_pwd'),
     url(r'^reset/(?P<activate_code>.*)/$', ResetPwdView.as_view(), name='reset_pwd'),
     url(r'^modify/$', ModifyPwd.as_view(), name='modify_pwd'),
+    url(r'^org_list/$', OrgView.as_view(), name='org_list'),
 ]
