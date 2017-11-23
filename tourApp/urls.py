@@ -20,7 +20,7 @@ from xadmin.plugins import xversion
 import xadmin
 from user_manage.views import LoginView, RegisterView, ActiveUserView, ForgetPasswordView, ResetPwdView, ModifyPwd
 from django.views.generic import TemplateView
-from device_manage.views import OrgView
+from organize.views import OrgView
 
 #version模块自动注册需要版本控制的 Model
 xversion.register_models()
