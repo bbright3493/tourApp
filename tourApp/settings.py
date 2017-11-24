@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'captcha',
     'course',
     'organize',
-    'user_operation'
+    'user_operation',
+    'pure_pagination',
 ]
 
 AUTH_USER_MODEL = 'user_manage.UserProfile'
@@ -79,6 +80,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.media',
             ],
         },
     },
@@ -149,3 +151,6 @@ EMAIL_HOST_USER = '44704708@qq.com'
 EMAIL_HOST_PASSWORD = 'wciidpgfhtptcaed'
 EMAIL_USE_TLS = False
 EMAIL_FROM = '44704708@qq.com'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
