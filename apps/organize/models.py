@@ -16,6 +16,9 @@ class CityDict(models.Model):
         verbose_name = u'城市'
         verbose_name_plural = verbose_name
 
+    def __unicode__(self):
+        return  self.name
+
 class CourseOrg(models.Model):
     name = models.CharField(max_length=50, verbose_name=u'机构名称')
     desc = models.TextField(verbose_name=u'机构描述')
@@ -26,6 +29,8 @@ class CourseOrg(models.Model):
     address = models.CharField(max_length=150, verbose_name=u'机构地址')
     city = models.ForeignKey(CityDict, verbose_name=u'所在城市')
     add_time = models.DateTimeField(default=datetime.now)
+    students = models.IntegerField(default=0, verbose_name=u'学生人数')
+    courses_num = models.IntegerField(default=0, verbose_name=u'课程数')
 
     class Meta:
         verbose_name = u'课程机构'
