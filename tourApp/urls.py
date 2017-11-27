@@ -42,4 +42,5 @@ urlpatterns = [
     url(r'^org_list/$', OrgView.as_view(), name='org_list'),
 
     url(r'^media/(?P<path>.*)$', serve, {'document_root':MEDIA_ROOT}),
+    url(r'^org/$', include('organize.urls'), name='org_list'),
 ]
