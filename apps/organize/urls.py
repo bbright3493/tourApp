@@ -13,8 +13,10 @@
 '''
 
 from django.conf.urls import patterns, include, url
+from .views import UserAskView, OrgView
 
 
 urlpatterns = [
-    url(r'^list/$', UserAskView.as_view(), name='userAsk'),
+    url(r'^add_ask/$', UserAskView.as_view(), name='userAsk'),
+    url(r'^list/$', OrgView.as_view(), name='org_list'),
 ]
