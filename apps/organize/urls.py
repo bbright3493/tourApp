@@ -18,5 +18,5 @@ from .views import UserAskView, OrgView
 
 urlpatterns = [
     url(r'^add_ask/$', UserAskView.as_view(), name='userAsk'),
-    url(r'^list/$', OrgView.as_view(), name='org_list'),
+    url(r'^list/', OrgView.as_view(), name='org_list'),
 ]
