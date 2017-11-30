@@ -21,7 +21,7 @@ class Course(models.Model):
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'加入时间')
 
     class Mate:
-        verbose_name = u'课程'
+        verbose_name = u'课程列表'
         verbose_name_plural = verbose_name
 
 class Lesson(models.Model):
