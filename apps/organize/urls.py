@@ -12,7 +12,7 @@
 修改时间：
 '''
 
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from .views import UserAskView, OrgView, OrgHomeView,CourseDetailView,OrgDescView,TeacherView, AddFavView
 
 

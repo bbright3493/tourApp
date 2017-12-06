@@ -21,6 +21,7 @@ class Course(models.Model):
     image = models.ImageField(upload_to='courses/%Y/%m', verbose_name=u'课程封面')
     click_num = models.IntegerField(default=0, verbose_name=u'点击数')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'加入时间')
+    category = models.CharField(default=u'后端开发', max_length=100, verbose_name=u'课程类型')
 
     class Meta:
         verbose_name = u'课程列表'
@@ -28,6 +29,12 @@ class Course(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_lesson_num(self):
+        return self.lesson_set.all().count()
+
+    def get_student(self):
+        return self.usercourse_set.all()[:5]
 
 class Lesson(models.Model):
     course = models.ForeignKey(Course, verbose_name=u'课程')

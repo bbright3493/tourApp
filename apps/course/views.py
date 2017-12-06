@@ -1,3 +1,49 @@
+#coding=utf-8
+
 from django.shortcuts import render
+from django.views.generic.base import View
+from .models import *
+from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
+class CourseListView(View):
+    def get(self, request):
+        courses = Course.objects.all()
+        courses = courses.order_by('-add_time')
+        hot_courses = courses.order_by('click_num')[:3]
+
+        sort = request.GET.get('sort','')
+        if sort:
+            if sort == 'hot':
+                courses = courses.order_by('click_num')
+            elif sort == 'students':
+                courses = courses.order_by('students')
+            else:
+                pass
+
+        courses_nums = courses.count()
+
+        #对课程机构进行分页
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+
+        p = Paginator(courses, 6, request=request)
+        course_page = p.page(page)
+
+        render(request, 'course-list.html',{
+            'all_courses':course_page,
+            'hot_cousrses':hot_courses,
+            'hot_cousrses':courses_nums,
+        })
+
+
+class CourseDetailView(View):
+    def get(self, request, course_id):
+        course = Course.objects.filter(id=int(course_id))
+        course.click_num += 1
+        course.save()
+        render(request, 'course-detail.html',{
+            'course':course,
+            })

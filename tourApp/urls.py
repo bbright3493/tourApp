@@ -15,7 +15,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import patterns, include, url
+from django.conf.urls import  include, url
 from xadmin.plugins import xversion
 import xadmin
 from user_manage.views import LoginView, RegisterView, ActiveUserView, ForgetPasswordView, ResetPwdView, ModifyPwd
@@ -41,4 +41,5 @@ urlpatterns = [
     url(r'^modify/$', ModifyPwd.as_view(), name='modify_pwd'),
     url(r'^media/(?P<path>.*)$', serve, {'document_root':MEDIA_ROOT}),
     url(r'^org/', include('organize.urls', namespace='org')),
+    url(r'^course/', include('course.urls', namespace='course')),
 ]
