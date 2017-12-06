@@ -13,10 +13,15 @@
 '''
 
 from django.conf.urls import patterns, include, url
-from .views import UserAskView, OrgView
+from .views import UserAskView, OrgView, OrgHomeView,CourseDetailView,OrgDescView,TeacherView, AddFavView
 
 
 urlpatterns = [
     url(r'^add_ask/$', UserAskView.as_view(), name='userAsk'),
-    url(r'^list/', OrgView.as_view(), name='org_list'),
+    url(r'^list/$', OrgView.as_view(), name='org_list'),
+    url(r'^home/(?P<org_id>\d+)/$', OrgHomeView.as_view(), name='org_home'),
+    url(r'^course_detail/(?P<org_id>\d+)/$', CourseDetailView.as_view(), name='course'),
+    url(r'^org_desc/(?P<org_id>\d+)/$', OrgDescView.as_view(), name='org_desc'),
+    url(r'^teacher/(?P<org_id>\d+)/$', TeacherView.as_view(), name='teacher'),
+    url(r'^add_fav/$', AddFavView.as_view(), name='add_fav'),
 ]
