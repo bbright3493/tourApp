@@ -18,4 +18,6 @@ from .views import *
 urlpatterns = [
     url(r'^list/$', CourseListView.as_view(), name='course_list'),
     url(r'^course_detail/(?P<course_id>\d+)/$', CourseDetailView.as_view(), name='detail'),
+    url(r'^course_video/(?P<course_id>\d+)/$', CourseVideoView.as_view(), name='video'),
+    url(r'^course_Comments/(?P<course_id>\d+)/$', CourseCommentsView.as_view(), name='comments'),
     ]
