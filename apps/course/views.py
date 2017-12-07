@@ -11,7 +11,7 @@ class CourseListView(View):
         courses = Course.objects.all()
         courses = courses.order_by('-add_time')
         hot_courses = courses.order_by('click_num')[:3]
-
+        cur_page = 'course'
         sort = request.GET.get('sort','')
         if sort:
             if sort == 'hot':
@@ -32,18 +32,20 @@ class CourseListView(View):
         p = Paginator(courses, 6, request=request)
         course_page = p.page(page)
 
-        render(request, 'course-list.html',{
+        return render(request, 'course-list.html',{
             'all_courses':course_page,
-            'hot_cousrses':hot_courses,
-            'hot_cousrses':courses_nums,
+            'hot_courses':hot_courses,
+            'cur_page':cur_page
+
         })
 
 
 class CourseDetailView(View):
     def get(self, request, course_id):
-        course = Course.objects.filter(id=int(course_id))
+        course = Course.objects.get(id=int(course_id))
         course.click_num += 1
         course.save()
-        render(request, 'course-detail.html',{
+
+        return render(request, 'course-detail.html',{
             'course':course,
             })

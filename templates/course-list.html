@@ -27,7 +27,7 @@
     <div id="inWindow">
     <div class="tab_cont " id="content">
     <div class="group_list">
-    {% for course in all_courses %}
+    {% for course in all_courses.object_list %}
     <div class="box">
         <a href="{% url 'course:detail' course.id %}">
             <img width="280" height="350" class="scrollLoading" src="{{ MEDIA_URL }}{{ course.image }}"/>

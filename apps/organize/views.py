@@ -15,7 +15,7 @@ class OrgView(View):
     def get(self, request):
         all_orgs = CourseOrg.objects.all()
         hot_orgs = all_orgs.order_by('-click_nums')[:3]
-
+        cur_page = 'org'
         all_citys = CityDict.objects.all()
 
         city_id = request.GET.get('city', '')
@@ -53,6 +53,7 @@ class OrgView(View):
             'city_id':city_id,
             'category':category,
             'hot_orgs':hot_orgs,
+            'cur_page':cur_page,
         })
 
 class UserAskView(View):
