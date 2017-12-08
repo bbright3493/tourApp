@@ -76,7 +76,8 @@ class CourseVideoView(View):
         cur_page = 'video'
         user_courses = UserCourse.objects.filter(course=course)
         user_ids = [user_course.user.id for user_course in user_courses]
-        course_ids = [user_course.course.id for user_course in user_courses]
+        all_user_courses = UserCourse.objects.filter(user_id__in==user_ids)
+        course_ids = [user_course.course.id for user_course in all_user_courses]
         relate_courses = Course.objects.filter(id__in=course_ids).order_by('-click_num')[:5]
 
         return render(request, 'course-video.html', {
