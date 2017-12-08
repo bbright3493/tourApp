@@ -131,7 +131,7 @@
                         {% for relate_course in relate_courses %}
                         <dl>
                             <dt>
-                                <a target="_blank" href="{% url 'course:course_detail' relate_course.id %}">
+                                <a target="_blank" href="">
                                     <img width="240" height="220" class="scrollLoading" src="{{ MEDIA_URL }}{{ relate_course.image }}"/>
                                 </a>
                             </dt>
@@ -161,7 +161,7 @@
                 data:{'fav_id':fav_id, 'fav_type':fav_type},
                 async: true,
                 beforeSend:function(xhr, settings){
-                    xhr.setRequestHeader("X-CSRFToken", "5I2SlleZJOMUX9QbwYLUIAOshdrdpRcy");
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
                 },
                 success: function(data) {
                     if(data.status == 'fail'){

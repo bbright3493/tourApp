@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^course_detail/(?P<course_id>\d+)/$', CourseDetailView.as_view(), name='detail'),
     url(r'^course_video/(?P<course_id>\d+)/$', CourseVideoView.as_view(), name='video'),
     url(r'^course_Comments/(?P<course_id>\d+)/$', CourseCommentsView.as_view(), name='comments'),
+    url(r'^add_comment/$', AddComment.as_view(), name='add_comment'),
     ]
