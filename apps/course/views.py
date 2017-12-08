@@ -6,7 +6,8 @@ from .models import *
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from user_operation.models import UserFavorite, CourseComments, UserCourse
 from django.http import HttpResponse
-
+from utils.mixin_utils import LoginRequiredMixin
+from django.db.models import Q
 # Create your views here.
 class CourseListView(View):
     def get(self, request):
@@ -69,9 +70,16 @@ class CourseDetailView(View):
             'has_fav_org':has_fav_org,
             })
 
-class CourseVideoView(View):
+class CourseVideoView(LoginRequiredMixin, View):
     def get(self, request, course_id):
         course = Course.objects.get(id=int(course_id))
+
+        #查询用户是否关联课程
+        user_courses = UserCourse.objects.filter(user=request.user, course=course)
+        if not user_courses:
+            user_course = UserCourse(user=request.user, course=course)
+            user_course.save()
+
         course_resource = CourseResource.objects.filter(course=course)
         cur_page = 'video'
         user_courses = UserCourse.objects.filter(course=course)
@@ -87,7 +95,7 @@ class CourseVideoView(View):
             'user_courses':relate_courses,
         })
 
-class CourseCommentsView(View):
+class CourseCommentsView(LoginRequiredMixin, View):
     def get(self, request, course_id):
         course = Course.objects.get(id=int(course_id))
         course_comments = CourseComments.objects.filter(course=course)

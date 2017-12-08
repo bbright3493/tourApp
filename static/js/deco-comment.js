@@ -15,8 +15,8 @@ function re_keyup(e){
     }
 }
 String.prototype.trim=function(){
-　　    return this.replace(/(^\s*)|(\s*$)/g, "");
-　　 }
+    return this.replace(/(^\s*)|(\s*$)/g, "");
+    }
 function comment_toggle(){
 	$('.com_child_toggle').live('click',function(){
 		 $(this).toggle(function(){
